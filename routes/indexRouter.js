@@ -4,17 +4,24 @@ const indexRouter = Router();
 const messages = [
   {
     added: new Date(),
-    id: 0,
     text: 'Hello world!',
     user: 'Catherine',
   },
   {
     added: new Date(),
-    id: 1,
     text: 'This is why I hate flying...',
     user: 'Obi-Wan Kenobi',
   },
 ];
+
+indexRouter.get('/new', (req, res) => {
+  res.render("form");
+})
+
+indexRouter.post('/new', (req, res) => {
+  messages.push({added: new Date(), text: req.body.userMessage, user: req.body.userName });
+  res.redirect('/');
+})
 
 indexRouter.get('/', (req, res) => {
   res.render("index", { messages: messages });
